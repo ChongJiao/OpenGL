@@ -81,8 +81,8 @@ int main(void)
 	shader.SetUniform1i("u_Texture", 0); 
 
 
-	glm::mat4 prj = glm::ortho(-4.0f, 4.0f, -2.0f, 2.0f, -1.0f, 1.0f);
-	shader.SetUniform4f("");
+	glm::mat4 prj = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 1.0f);
+	shader.SetUniformMat4f("u_MVP", prj);
 
 	
 	va.Unbind();
