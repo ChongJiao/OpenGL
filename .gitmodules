@@ -1,0 +1,3 @@
+[submodule "GameEngine\\Hazel\\Hazel\\vendor\\GFLW"]
+	path = GameEngine\\Hazel\\Hazel\\vendor\\GFLW
+	url = https://github.com/TheCherno/glfw
