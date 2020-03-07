@@ -67,10 +67,10 @@ int main(void)
 	std::cout << glGetString(GL_VERSION) << std::endl;
 
 	float positions[] = {
-		100.0f, 100.0f, 0.0f, 0.0f, 
-		200.0f, 100.0f, 1.0f, 0.0f,
-		200.0f, 200.0f, 1.0f, 1.0f,
-		100.0f, 200.0f, 0.0f, 1.0f
+		-50.0f, -50.0f, 0.0f, 0.0f, 
+		 50.0f, -50.0f, 1.0f, 0.0f,
+		 50.0f,  50.0f, 1.0f, 1.0f,
+		-50.0f,  50.0f, 0.0f, 1.0f
 	};
 
 	unsigned int indices[] = {
@@ -94,7 +94,6 @@ int main(void)
 
 	Shader shader("res/shaders/Basic.shader");
 	shader.Bind();
-	shader.SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
 
 	Texture texture("res/textures/peiqiLogo.png");
 	texture.Bind();
@@ -102,7 +101,7 @@ int main(void)
 
 
 	glm::mat4 prj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(-100, 0, 0));
+	glm::mat4 view = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0));
 
 	va.Unbind();
 	vb.Unbind();
@@ -113,7 +112,8 @@ int main(void)
 
 	/* Loop until the user closes the window */
 
-	glm::vec3 translation = glm::vec3(200, 200, 0);
+	glm::vec3 translationA = glm::vec3(200, 200, 0);
+	glm::vec3 translationB = glm::vec3(400, 200, 0);
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	while (!glfwWindowShouldClose(window))
@@ -127,9 +127,25 @@ int main(void)
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-		glm::mat4 mvp = prj * view * model;
-		shader.SetUniformMat4f("u_MVP", mvp);
+		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		//apply object MVP matrices and draw
+		{
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), translationA);
+			glm::mat4 mvp = prj * view * model;
+			shader.SetUniformMat4f("u_MVP", mvp);
+
+			render.Draw(va, ib, shader);
+		}
+
+		{
+			glm::mat4 model = glm::translate(glm::mat4(1.0f), translationB);
+			glm::mat4 mvp = prj * view * model;
+			shader.SetUniformMat4f("u_MVP", mvp);
+
+			render.Draw(va, ib, shader);
+		}
 
 		// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
 		{
@@ -137,25 +153,14 @@ int main(void)
 			static int counter = 0;
 
 			ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-			ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+			ImGui::SliderFloat3("Translation A", &translationA.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+			ImGui::SliderFloat3("Translation B", &translationB.x, 0.0f, 960.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+			ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 			ImGui::End();
 		}
 		/* Render here */	
 		ImGui::Render();
-		glClearColor(clear_color.x, clear_color.y, clear_color.z, clear_color.w);
-		glClear(GL_COLOR_BUFFER_BIT);
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-		//render.Clear();
-
-		shader.Bind();
-		texture.Bind();
-		shader.SetUniform1i("u_Texture", 0);
-		//shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
-		//texture.Bind();
-		//shader.SetUniform1i("u_Texture", 0);
-
-		render.Draw(va, ib, shader);
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
