@@ -3,3 +3,4 @@ Debug
 bin-int
 bin
 /GameEngine/Hazel/Hazel/*.user
+/GameEngine/Hazel/Hazel/vendor/spdlog
