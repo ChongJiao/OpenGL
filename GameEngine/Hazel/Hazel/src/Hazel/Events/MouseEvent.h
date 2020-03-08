@@ -13,7 +13,7 @@ namespace Hazel
 		inline float GetX() const { return m_MouseX; }
 		inline float GetY() const { return m_MouseY; }
 
-		std::string ToString() const override 
+		std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseMoveEvent: " << m_MouseX << ", " << m_MouseY;
@@ -39,7 +39,7 @@ namespace Hazel
 		{
 			std::stringstream ss;
 			ss << "MouseScrolledEvent " << m_XOffset << ", " << m_YOffset;
-			ss.str();
+			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled);
