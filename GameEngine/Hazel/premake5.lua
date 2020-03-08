@@ -13,17 +13,19 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
+IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 
 include "Hazel/vendor/GLFW"
 include "Hazel/vendor/GLAD"
+include "Hazel/vendor/imgui"
 
 project "Hazel"
 	location "Hazel"
 	kind "SharedLib"
 	language "C++"
 
-	targetdir ("bin/" .. outputdir .. "%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	pchheader "hzpch.h"
 	pchsource "Hazel/src/hzpch.cpp"
@@ -39,13 +41,15 @@ project "Hazel"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 	
 	links
 	{
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 
@@ -60,6 +64,11 @@ project "Hazel"
 			"HZ_BUILD_DLL",
 			"HZ_ENABLE_ASSERTS",
 			"GLFW_INCLUDE_NONE"
+		}
+
+		postbuildcommands
+		{
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
 		}
 
 	filter "configurations:Debug"
@@ -83,8 +92,8 @@ project "Sandbox"
 
 	language  "C++"
 	
-	targetdir ("bin/" .. outputdir .. "%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
 	files
 	{

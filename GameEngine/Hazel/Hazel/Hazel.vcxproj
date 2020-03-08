@@ -55,22 +55,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86_64Hazel\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86_64Hazel\</IntDir>
+    <OutDir>..\bin\Debug-windows-x86_64\Hazel\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\Hazel\</IntDir>
     <TargetName>Hazel</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86_64Hazel\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86_64Hazel\</IntDir>
+    <OutDir>..\bin\Release-windows-x86_64\Hazel\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\Hazel\</IntDir>
     <TargetName>Hazel</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-x86_64Hazel\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-x86_64Hazel\</IntDir>
+    <OutDir>..\bin\Dist-windows-x86_64\Hazel\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86_64\Hazel\</IntDir>
     <TargetName>Hazel</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
@@ -80,7 +80,7 @@
       <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HZ_PLATFORM_WINDOWS;HZ_BUILD_DLL;HZ_ENABLE_ASSERTS;GLFW_INCLUDE_NONE;HZ_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -91,8 +91,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Debug-windows-x86_64Hazel\Hazel.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\Hazel\Hazel.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Hazel\Hazel.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Hazel\Hazel.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Hazel\Hazel.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -100,7 +103,7 @@
       <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HZ_PLATFORM_WINDOWS;HZ_BUILD_DLL;HZ_ENABLE_ASSERTS;GLFW_INCLUDE_NONE;HZ_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -111,8 +114,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Release-windows-x86_64Hazel\Hazel.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Release-windows-x86_64\Hazel\Hazel.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Hazel\Hazel.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Hazel\Hazel.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Hazel\Hazel.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <ClCompile>
@@ -120,7 +126,7 @@
       <PrecompiledHeaderFile>hzpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>HZ_PLATFORM_WINDOWS;HZ_BUILD_DLL;HZ_ENABLE_ASSERTS;GLFW_INCLUDE_NONE;HZ_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;vendor\spdlog\include;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -131,8 +137,11 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ImportLibrary>..\bin\Dist-windows-x86_64Hazel\Hazel.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Dist-windows-x86_64\Hazel\Hazel.lib</ImportLibrary>
     </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Hazel\Hazel.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Hazel\Hazel.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Hazel\Hazel.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Hazel.h" />
@@ -143,18 +152,22 @@
     <ClInclude Include="src\Hazel\Events\Event.h" />
     <ClInclude Include="src\Hazel\Events\KeyEvent.h" />
     <ClInclude Include="src\Hazel\Events\MouseEvent.h" />
+    <ClInclude Include="src\Hazel\ImGui\ImGuiLayer.h" />
     <ClInclude Include="src\Hazel\Layer.h" />
     <ClInclude Include="src\Hazel\LayerStack.h" />
     <ClInclude Include="src\Hazel\Log.h" />
     <ClInclude Include="src\Hazel\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\hzpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Application.cpp" />
+    <ClCompile Include="src\Hazel\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Hazel\Layer.cpp" />
     <ClCompile Include="src\Hazel\LayerStack.cpp" />
     <ClCompile Include="src\Hazel\Log.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\hzpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -166,6 +179,9 @@
     </ProjectReference>
     <ProjectReference Include="vendor\GLAD\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
