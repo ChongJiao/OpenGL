@@ -1,0 +1,3 @@
+[submodule "GameEngine\\Hazel\\Hazel\\vendor\\imgui"]
+	path = GameEngine\\Hazel\\Hazel\\vendor\\imgui
+	url = https://github.com/TheCherno/imgui
