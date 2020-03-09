@@ -16,10 +16,10 @@ namespace Hazel {
 		int m_KeyCode;
 	};
 
-	class HAZEL_API KeyPressEvent : public KeyEvent
+	class HAZEL_API KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressEvent(int keycode, int repeatCount)
+		KeyPressedEvent(int keycode, int repeatCount)
 			:KeyEvent(keycode), m_RepeatCount(repeatCount){}
 		
 		inline int GetRepeatCount() const { return m_RepeatCount; }
@@ -51,5 +51,10 @@ namespace Hazel {
 		}
 
 		EVENT_CLASS_TYPE(KeyReleased);
+	};
+
+	class HAZEL_API KeyTypedEvent : public KeyEvent
+	{
+
 	};
 }

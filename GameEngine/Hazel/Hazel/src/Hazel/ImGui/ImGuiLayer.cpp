@@ -78,5 +78,62 @@ namespace Hazel {
 
 	void ImGuiLayer::OnEvent(Event & event)
 	{
+		EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<MouseButtonPressedEvent>(HZ_BIND_EVENT(ImGuiLayer::OnMouseButtonPressedEvent));
+		dispatcher.Dispatch<MouseButtonReleasedEvent>(HZ_BIND_EVENT(ImGuiLayer::OnMouseButtonReleasedEvent));
+		dispatcher.Dispatch<MouseMovedEvent>(HZ_BIND_EVENT(ImGuiLayer::OnMouseMovedEvent));
+		dispatcher.Dispatch<MouseScrolleEvent>(HZ_BIND_EVENT(ImGuiLayer::OnMouseScrolleEvent));
+		
+		dispatcher.Dispatch<KeyPressedEvent>(HZ_BIND_EVENT(ImGuiLayer::OnKeyPressedEvent));
+		dispatcher.Dispatch<KeyReleasedEvent>(HZ_BIND_EVENT(ImGuiLayer::OnKeyReleasedEvent));
+		//dispatcher.Dispatch<KeyTypedEvent>(HZ_BIND_EVENT(ImGuiLayer::OnKeyTypedEvent));
+		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT(ImGuiLayer::OnWindowResizeEvent));
+		//dispatcher.Dispatch<MouseButtonPressedEvent>(HZ_BIND_EVENT(ImGuiLayer::OnMouseButtonPressedEvent));
+	}
+	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent & e)
+	{
+
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseDown[e.GetMouseButton()] = true;
+
+		return false;
+	}
+	bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent & e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseDown[e.GetMouseButton()] = false;
+
+		return false;
+	}
+
+	bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent & e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MousePos = ImVec2(e.GetX(), e.GetY());
+
+		return false;
+	}
+	bool ImGuiLayer::OnMouseScrolleEvent(MouseScrolleEvent & e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.MouseWheelH += e.GetXOffset();
+		io.MouseWheel += e.GetYOffset();
+		return false;
+	}
+	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent & e)
+	{
+		return false;
+	}
+	bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent & e)
+	{
+		return false;
+	}
+	bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent & e)
+	{
+		return false;
+	}
+	bool ImGuiLayer::OnWindowResizeEvent(WindowResizeEvent & e)
+	{
+		return false;
 	}
 }
