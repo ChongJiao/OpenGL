@@ -1,5 +1,6 @@
 #include "Hazel.h"
 
+
 class ExampleLayer : public Hazel::Layer
 {
 public:
@@ -8,13 +9,19 @@ public:
 	{}
 
 	void OnUpdate() override
-	{
-		//HZ_INFO("ExampleLayer::Update");
+	{	
+		if (Hazel::Input::IsKeyPressed(HZ_KEY_TAB))
+			HZ_INFO("Tab key pressed");
 	}
 
 	void OnEvent(Hazel::Event& event) 
 	{
-		HZ_TRACE("Event");
+		//HZ_TRACE("Event");
+		if (event.GetEventType() == Hazel::EventType::KeyPressed)
+		{
+			Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
+			HZ_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 };
 
