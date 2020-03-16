@@ -4,6 +4,8 @@
 #include "Events/ApplicationEvent.h"
 #include "Window.h"
 #include "Hazel/LayerStack.h"
+#include "Hazel/ImGui/ImGuiLayer.h"
+
 namespace Hazel {
 
 	class HAZEL_API Application
@@ -25,6 +27,8 @@ namespace Hazel {
 		bool OnWindowClose(WindowsCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
+
+		ImGuiLayer* m_ImGuiLayer;
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
