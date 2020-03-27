@@ -26,10 +26,10 @@ namespace Hazel
 		float m_MouseX, m_MouseY;
 	};
 
-	class HAZEL_API MouseScrolleEvent : public Event
+	class HAZEL_API MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolleEvent(float xOffset, float yOffset)
+		MouseScrolledEvent(float xOffset, float yOffset)
 			: m_XOffset(xOffset), m_YOffset(yOffset){}
 		
 		inline float GetXOffset() const { return m_XOffset; }

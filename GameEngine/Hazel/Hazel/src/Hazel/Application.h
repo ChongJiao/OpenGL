@@ -6,6 +6,8 @@
 #include "Hazel/LayerStack.h"
 #include "Hazel/ImGui/ImGuiLayer.h"
 
+
+int main(int argc, char** argv);
 namespace Hazel {
 
 	class HAZEL_API Application
@@ -13,8 +15,6 @@ namespace Hazel {
 	public:
 		Application();
 		virtual ~Application();
-		
-		void Run();
 		
 		void OnEvent(Event& e);
 		
@@ -24,6 +24,7 @@ namespace Hazel {
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 	private:
+		void Run();
 		bool OnWindowClose(WindowsCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
@@ -31,10 +32,13 @@ namespace Hazel {
 		ImGuiLayer* m_ImGuiLayer;
 		std::unique_ptr<Window> m_Window;
 		bool m_Running = true;
-		LayerStack m_LayerStack;
+		LayerStack m_LayerStack; 
+		float m_LastFrameTime = 0.0f;
+		bool m_Minimized = false;
 
 	private:
 		static Application* s_Instance;
+		friend int ::main(int argc, char** argv);
 	};
 
 	//TO Be defined int client
