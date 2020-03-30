@@ -132,10 +132,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\ExampleLayer.h" />
+    <ClInclude Include="src\FlipperBird\GamesLayer.h" />
+    <ClInclude Include="src\Object\MyObject.h" />
     <ClInclude Include="src\Sandbox2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ExampleLayer.cpp" />
+    <ClCompile Include="src\FlipperBird\GamesLayer.cpp" />
+    <ClCompile Include="src\Object\MyObject.cpp" />
     <ClCompile Include="src\Sandbox.cpp" />
     <ClCompile Include="src\Sandbox2D.cpp" />
   </ItemGroup>
